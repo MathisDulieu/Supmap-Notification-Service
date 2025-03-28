@@ -1,0 +1,14 @@
+services:
+  notification-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8080"
+    environment:
+      - PORT=${{ shared.PORT }}
+      - SPRING_DATASOURCE_URL=${{ shared.NOTIFICATION_DB_URL }}
+      - SPRING_DATASOURCE_USERNAME=${{ shared.NOTIFICATION_DB_USERNAME }}
+      - SPRING_DATASOURCE_PASSWORD=${{ shared.NOTIFICATION_DB_PASSWORD }}
+      - KAFKA_BOOTSTRAP_SERVERS=${{ shared.KAFKA_BOOTSTRAP_SERVERS }}
+    restart: always
