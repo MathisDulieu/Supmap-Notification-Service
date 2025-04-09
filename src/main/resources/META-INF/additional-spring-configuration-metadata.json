@@ -3,32 +3,32 @@
     {
       "name": "supmap.properties.database-name",
       "type": "java.lang.String",
-      "description": "Description for supmap.properties.database-name."
+      "description": "The name of the MongoDB database used by the notification service to store alert and notification data."
     },
     {
       "name": "supmap.properties.elasticsearch-password",
       "type": "java.lang.String",
-      "description": "Description for supmap.properties.elasticsearch-password."
+      "description": "Password for authenticating with the Elasticsearch instance used for indexing and searching notification data."
     },
     {
       "name": "supmap.properties.elasticsearch-url",
       "type": "java.lang.String",
-      "description": "Description for supmap.properties.elasticsearch-url."
+      "description": "URL endpoint for the Elasticsearch service used for efficient querying of notification history and analytics."
     },
     {
       "name": "supmap.properties.elasticsearch-username",
       "type": "java.lang.String",
-      "description": "Description for supmap.properties.elasticsearch-username."
+      "description": "Username for authenticating with the Elasticsearch instance used for notification data indexing."
     },
     {
       "name": "supmap.properties.kafka-bootstrap-servers",
       "type": "java.lang.String",
-      "description": "Description for supmap.properties.kafka-bootstrap-servers."
+      "description": "Comma-separated list of host:port pairs for establishing the initial connection to the Kafka cluster for event processing."
     },
     {
       "name": "supmap.properties.mongo-uri",
       "type": "java.lang.String",
-      "description": "Description for supmap.properties.mongo-uri."
+      "description": "Connection string URI for the MongoDB database, including authentication credentials if required."
     }
   ]
 }

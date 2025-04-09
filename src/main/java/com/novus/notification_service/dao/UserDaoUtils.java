@@ -5,8 +5,6 @@ import com.novus.shared_models.common.User.User;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 public class UserDaoUtils {
 
