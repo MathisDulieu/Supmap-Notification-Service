@@ -13,7 +13,12 @@
 	<artifactId>notification-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>notification-service</name>
-	<description>Real-time notification management service for the SUPMAP application, responsible for processing traffic alerts and reported incidents</description>
+	<description>
+		User notification preference management service for SUPMAP that enables customization of communication channels
+		and alert delivery. Provides personalized notification settings with metrics tracking for engagement optimization,
+		allowing users to control how they receive traffic updates, incident reports, and system communications through email
+		and other channels.
+	</description>
 
 	<repositories>
 		<repository>
@@ -48,12 +53,12 @@
 		<dependency>
 			<groupId>com.novus</groupId>
 			<artifactId>shared-models</artifactId>
-			<version>1.1.6</version>
+			<version>1.1.9</version>
 		</dependency>
 		<dependency>
 			<groupId>com.novus</groupId>
 			<artifactId>database-utils</artifactId>
-			<version>1.1.1</version>
+			<version>1.1.5</version>
 		</dependency>
 
 		<!-- Spring Boot Core -->
@@ -94,6 +99,7 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
+
 
 		<!-- Test -->
 		<dependency>

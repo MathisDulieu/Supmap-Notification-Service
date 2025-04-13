@@ -1,5 +1,6 @@
 package com.novus.notification_service.services;
 
+import com.novus.notification_service.configuration.DateConfiguration;
 import com.novus.notification_service.dao.UserDaoUtils;
 import com.novus.notification_service.utils.LogUtils;
 import com.novus.shared_models.common.Kafka.KafkaMessage;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Date;
 import java.util.Map;
 
 @Slf4j
@@ -22,16 +22,18 @@ public class MutationService {
 
     private final UserDaoUtils userDaoUtils;
     private final LogUtils logUtils;
+    private final DateConfiguration dateConfiguration;
 
     public void updateAuthenticatedUserNotificationPreferences(KafkaMessage kafkaMessage) {
         Map<String, String> request = kafkaMessage.getRequest();
         String isEmail = request.get("isEmail");
         User user = kafkaMessage.getAuthenticatedUser();
+        log.info("Starting to process update notification preferences request for user with ID: {}", user.getId());
 
         try {
             user.getNotificationSettings().setEmailEnabled(Boolean.parseBoolean(isEmail));
-            user.setUpdatedAt(new Date());
-            user.setLastActivityDate(new Date());
+            user.setUpdatedAt(dateConfiguration.newDate());
+            user.setLastActivityDate(dateConfiguration.newDate());
 
             userDaoUtils.save(user);
 
@@ -41,12 +43,14 @@ public class MutationService {
                     kafkaMessage.getIpAddress(),
                     "User notification preferences updated successfully: Email notifications = " + isEmail,
                     HttpMethod.PUT,
-                    "/notification/preferences",
+                    "/private/notification/preferences",
                     "notification-service",
                     null,
                     user.getId()
             );
+            log.info("Notification preferences successfully updated for user: {}", user.getId());
         } catch (Exception e) {
+            log.error("Error occurred while processing update notification preferences request: {}", e.getMessage());
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
@@ -58,7 +62,7 @@ public class MutationService {
                     kafkaMessage.getIpAddress(),
                     "Error updating user notification preferences for userId: " + user.getId() + ", error: " + e.getMessage(),
                     HttpMethod.PUT,
-                    "/notification/preferences",
+                    "/private/notification/preferences",
                     "notification-service",
                     stackTrace,
                     user.getId()
